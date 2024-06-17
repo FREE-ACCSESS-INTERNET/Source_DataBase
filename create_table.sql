@@ -49,6 +49,10 @@ IF OBJECT_ID('dbo.Status', 'U') IS NOT NULL
 if OBJECT_ID('dbo.Cards', 'U') IS NOT NULL
     DROP TABLE dbo.Cards;
 
+if OBJECT_ID('dbo.ReferralStatus', 'U') IS NOT NULL
+    DROP TABLE dbo.ReferralStatus;
+
+
 -- create the table
 
 CREATE TABLE [dbo].[Status] (
