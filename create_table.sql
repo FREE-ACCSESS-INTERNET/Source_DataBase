@@ -141,6 +141,18 @@ CREATE TABLE [dbo].[PaymentsStatus] (
     FOREIGN KEY (Status) REFERENCES Status(Id)
 );
 
+CREATE TABLE [dbo].[Paths] (
+    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
+    [ServerId] INT NOT NULL,
+    [Address] NVARCHAR(50) NOT NULL,
+    [Info] NVARCHAR(200) NOT NULL,
+    [CreatedAt] DATETIME NOT NULL,
+    [Status] INT NOT NULL,
+    [PricePerGig] DECIMAL(18, 2) NOT NULL,
+    FOREIGN KEY (ServerId) REFERENCES Server(Id),
+    FOREIGN KEY (Status) REFERENCES Status(Id)
+);
+
 CREATE TABLE [dbo].[Configurations] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [WalletId] INT NOT NULL,
@@ -161,22 +173,11 @@ CREATE TABLE [dbo].[Configurations] (
 CREATE TABLE [dbo].[LastUsedGig] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [ConfigurationId] INT NOT NULL,
-    [UsedGig] Descimal(3, 2) NOT NULL,
+    [UsedGig] DECIMAL(3, 2) NOT NULL,
     [UpdateDate] DATETIME,
     FOREIGN KEY (ConfigurationId) REFERENCES Configurations(Id)
 );
 
-CREATE TABLE [dbo].[Paths] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [ServerId] INT NOT NULL,
-    [Address] NVARCHAR(50) NOT NULL,
-    [Info] NVARCHAR(200) NOT NULL,
-    [CreatedAt] DATETIME NOT NULL,
-    [Status] INT NOT NULL,
-    [PricePerGig] DECIMAL(18, 2) NOT NULL,
-    FOREIGN KEY (ServerId) REFERENCES Server(Id),
-    FOREIGN KEY (Status) REFERENCES Status(Id)
-);
 
 CREATE TABLE [dbo].[PathStatus] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
@@ -192,7 +193,7 @@ CREATE TABLE [dbo].[Traffics] (
     [ConfigurationId] INT NOT NULL,
     [PathId] INT NOT NULL,
     [CreatedAt] DATETIME NOT NULL,
-    [Gig] Descimal(3, 2) NOT NULL,
+    [Gig] DECIMAL(3, 2) NOT NULL,
     FOREIGN KEY (ConfigurationId) REFERENCES Configurations(Id),
     FOREIGN KEY (PathId) REFERENCES Paths(Id)
 );
