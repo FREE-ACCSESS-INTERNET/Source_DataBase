@@ -113,7 +113,7 @@ CREATE TABLE [dbo].[Payments] (
 
 CREATE TABLE [dbo].[PaymentsStatus] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [Status] NVARCHAR(50) NOT NULL,
+    [Status] INT NOT NULL,
     [CreatedAt] DATETIME NOT NULL,
     [PaymentId] INT NOT NULL,
     FOREIGN KEY (PaymentId) REFERENCES Payments(Id),
