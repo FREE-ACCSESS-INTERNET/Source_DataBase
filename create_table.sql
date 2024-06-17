@@ -1,14 +1,61 @@
 -- this file aims to create the table in the SQL Server
 
+-- drop the table if it exists
+IF OBJECT_ID('dbo.SubTransactions', 'U') IS NOT NULL
+    DROP TABLE dbo.SubTransactions;
+
+IF OBJECT_ID('dbo.Transactions', 'U') IS NOT NULL
+    DROP TABLE dbo.Transactions;
+
+IF OBJECT_ID('dbo.Traffics', 'U') IS NOT NULL
+    DROP TABLE dbo.Traffics;
+
+IF OBJECT_ID('dbo.PathStatus', 'U') IS NOT NULL
+    DROP TABLE dbo.PathStatus;
+
+IF OBJECT_ID('dbo.Paths', 'U') IS NOT NULL
+    DROP TABLE dbo.Paths;
+
+IF OBJECT_ID('dbo.LastUsedGig', 'U') IS NOT NULL
+    DROP TABLE dbo.LastUsedGig;
+
+IF OBJECT_ID('dbo.Configurations', 'U') IS NOT NULL
+    DROP TABLE dbo.Configurations;
+
+IF OBJECT_ID('dbo.PaymentsStatus', 'U') IS NOT NULL
+    DROP TABLE dbo.PaymentsStatus;
+
+IF OBJECT_ID('dbo.Payments', 'U') IS NOT NULL
+    DROP TABLE dbo.Payments;
+
+IF OBJECT_ID('dbo.Server', 'U') IS NOT NULL
+    DROP TABLE dbo.Server;
+
+IF OBJECT_ID('dbo.Countries', 'U') IS NOT NULL  
+    DROP TABLE dbo.Countries;
+
+IF OBJECT_ID('dbo.Referrals', 'U') IS NOT NULL
+    DROP TABLE dbo.Referrals;
+
+IF OBJECT_ID('dbo.Wallets', 'U') IS NOT NULL
+    DROP TABLE dbo.Wallets;
+
+IF OBJECT_ID('dbo.Users', 'U') IS NOT NULL
+    DROP TABLE dbo.Users;
+
+IF OBJECT_ID('dbo.Status', 'U') IS NOT NULL
+    DROP TABLE dbo.Status;
+
+
 
 -- create the table
 
-CREATE If NOT EXISTS TABLE [dbo].[Status] (
+CREATE TABLE [dbo].[Status] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [Name] NVARCHAR(50) NOT NULL
 );
 
-CREATE If NOT EXISTS TABLE [dbo].[Users] (
+CREATE TABLE [dbo].[Users] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [Name] NVARCHAR(50) NOT NULL,
     [TelgramId] NVARCHAR(50) NOT NULL,
@@ -16,7 +63,7 @@ CREATE If NOT EXISTS TABLE [dbo].[Users] (
     [CreatedAt] DATETIME NOT NULL
 );
 
-CREATE If NOT EXISTS TABLE [dbo].[Wallets] (
+CREATE TABLE [dbo].[Wallets] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [UserId] INT NOT NULL,
     [Balance] DECIMAL(18, 2) NOT NULL,
@@ -24,7 +71,7 @@ CREATE If NOT EXISTS TABLE [dbo].[Wallets] (
     FOREIGN KEY (UserId) REFERENCES Users(Id)
 );
 
-CREATE If NOT EXISTS TABLE [dbo].[Referrals] (
+CREATE TABLE [dbo].[Referrals] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [UserId] INT NOT NULL,
     [ReferralId] INT NOT NULL,
@@ -37,12 +84,12 @@ CREATE If NOT EXISTS TABLE [dbo].[Referrals] (
     FOREIGN KEY (Status) REFERENCES Status(Id)
 );
 
-CREATE If NOT EXISTS TABLE [dbo].[Countries] (
+CREATE TABLE [dbo].[Countries] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [Name] NVARCHAR(50) NOT NULL
 );
 
-CREATE If NOT EXISTS TABLE [dbo].[Server] (
+CREATE TABLE [dbo].[Server] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [Name] NVARCHAR(50) NOT NULL,
     [IP] NVARCHAR(50) NOT NULL,
@@ -54,7 +101,7 @@ CREATE If NOT EXISTS TABLE [dbo].[Server] (
     FOREIGN KEY (Status) REFERENCES Status(Id)
 );
 
-CREATE If NOT EXISTS TABLE [dbo].[Payments] (
+CREATE TABLE [dbo].[Payments] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [BuyerWalletId] INT NOT NULL,
     [SellerWalletId] INT NOT NULL,
@@ -64,7 +111,7 @@ CREATE If NOT EXISTS TABLE [dbo].[Payments] (
     FOREIGN KEY (SellerWalletId) REFERENCES Wallets(Id)
 );
 
-CREATE If NOT EXISTS TABLE [dbo].[PaymentsStatus] (
+CREATE TABLE [dbo].[PaymentsStatus] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [Status] NVARCHAR(50) NOT NULL,
     [CreatedAt] DATETIME NOT NULL,
@@ -73,7 +120,7 @@ CREATE If NOT EXISTS TABLE [dbo].[PaymentsStatus] (
     FOREIGN KEY (Status) REFERENCES Status(Id)
 );
 
-CREATE If NOT EXISTS TABLE [dbo].[Configurations] (
+CREATE TABLE [dbo].[Configurations] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [WalletId] INT NOT NULL,
     [ServerId] INT NOT NULL,
@@ -88,14 +135,14 @@ CREATE If NOT EXISTS TABLE [dbo].[Configurations] (
     FOREIGN KEY (Status) REFERENCES Status(Id)
 );
 
-CREATE If NOT EXISTS TABLE [dbo].[LastUsedGig] (
+CREATE TABLE [dbo].[LastUsedGig] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [ConfigurationId] INT NOT NULL,
     [UsedGig] INT NOT NULL,
     FOREIGN KEY (ConfigurationId) REFERENCES Configurations(Id)
 );
 
-CREATE If NOT EXISTS TABLE [dbo].[Paths] (
+CREATE TABLE [dbo].[Paths] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [ServerId] INT NOT NULL,
     [Address] NVARCHAR(50) NOT NULL,
@@ -106,7 +153,7 @@ CREATE If NOT EXISTS TABLE [dbo].[Paths] (
     FOREIGN KEY (Status) REFERENCES Status(Id)
 );
 
-CREATE If NOT EXISTS TABLE [dbo].[PathStatus] (
+CREATE TABLE [dbo].[PathStatus] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [PathId] INT NOT NULL,
     [Speed] INT NOT NULL,
@@ -115,7 +162,7 @@ CREATE If NOT EXISTS TABLE [dbo].[PathStatus] (
     FOREIGN KEY (PathId) REFERENCES Paths(Id)
 );
 
-CREATE If NOT EXISTS TABLE [dbo].[Traffics] (
+CREATE TABLE [dbo].[Traffics] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [ConfigurationId] INT NOT NULL,
     [PathId] INT NOT NULL,
@@ -124,14 +171,14 @@ CREATE If NOT EXISTS TABLE [dbo].[Traffics] (
     FOREIGN KEY (PathId) REFERENCES Paths(Id)
 );
 
-CREATE If NOT EXISTS TABLE [dbo].[Transactions] (
+CREATE TABLE [dbo].[Transactions] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [TrafficsId] INT NOT NULL,
     [CreatedAt] DATETIME NOT NULL,
     FOREIGN KEY (TrafficsId) REFERENCES Traffics(Id)
 );
 
-CREATE If NOT EXISTS TABLE [dbo].[SubTransactions] (
+CREATE TABLE [dbo].[SubTransactions] (
     [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [TransactionId] INT NOT NULL,
     [Amount] DECIMAL(18, 2) NOT NULL,
