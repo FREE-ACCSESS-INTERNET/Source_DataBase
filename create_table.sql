@@ -1,8 +1,17 @@
 -- this file aims to create the table in the SQL Server
 
 -- drop the table if it exists
-IF OBJECT_ID('dbo.SubTransactions', 'U') IS NOT NULL
-    DROP TABLE dbo.SubTransactions;
+IF OBJECT_ID('dbo.LastUsedGig', 'U') IS NOT NULL
+    DROP TABLE dbo.LastUsedGig;
+
+IF OBJECT_ID('dbo.Configurations', 'U') IS NOT NULL
+    DROP TABLE dbo.Configurations;
+
+IF OBJECT_ID('dbo.PathStatus', 'U') IS NOT NULL
+    DROP TABLE dbo.PathStatus;
+
+IF OBJECT_ID('dbo.subTransactions', 'U') IS NOT NULL
+    DROP TABLE dbo.subTransactions;
 
 IF OBJECT_ID('dbo.Transactions', 'U') IS NOT NULL
     DROP TABLE dbo.Transactions;
@@ -10,17 +19,20 @@ IF OBJECT_ID('dbo.Transactions', 'U') IS NOT NULL
 IF OBJECT_ID('dbo.Traffics', 'U') IS NOT NULL
     DROP TABLE dbo.Traffics;
 
-IF OBJECT_ID('dbo.PathStatus', 'U') IS NOT NULL
-    DROP TABLE dbo.PathStatus;
-
 IF OBJECT_ID('dbo.Paths', 'U') IS NOT NULL
     DROP TABLE dbo.Paths;
 
-IF OBJECT_ID('dbo.LastUsedGig', 'U') IS NOT NULL
-    DROP TABLE dbo.LastUsedGig;
+IF OBJECT_ID('dbo.Server', 'U') IS NOT NULL
+    DROP TABLE dbo.Server;
 
-IF OBJECT_ID('dbo.Configurations', 'U') IS NOT NULL
-    DROP TABLE dbo.Configurations;
+IF OBJECT_ID('dbo.Countries', 'U') IS NOT NULL
+    DROP TABLE dbo.Countries;
+
+IF OBJECT_ID('dbo.ReferralStatus', 'U') IS NOT NULL
+    DROP TABLE dbo.ReferralStatus;
+
+IF OBJECT_ID('dbo.Referrals', 'U') IS NOT NULL
+    DROP TABLE dbo.Referrals;
 
 IF OBJECT_ID('dbo.PaymentsStatus', 'U') IS NOT NULL
     DROP TABLE dbo.PaymentsStatus;
@@ -28,30 +40,17 @@ IF OBJECT_ID('dbo.PaymentsStatus', 'U') IS NOT NULL
 IF OBJECT_ID('dbo.Payments', 'U') IS NOT NULL
     DROP TABLE dbo.Payments;
 
-IF OBJECT_ID('dbo.Server', 'U') IS NOT NULL
-    DROP TABLE dbo.Server;
+IF OBJECT_ID('dbo.Status', 'U') IS NOT NULL
+    DROP TABLE dbo.Status;
 
-IF OBJECT_ID('dbo.Countries', 'U') IS NOT NULL  
-    DROP TABLE dbo.Countries;
-
-IF OBJECT_ID('dbo.Referrals', 'U') IS NOT NULL
-    DROP TABLE dbo.Referrals;
-
-IF OBJECT_ID('dbo.Wallets', 'U') IS NOT NULL
-    DROP TABLE dbo.Wallets;
+IF OBJECT_ID('dbo.Cards', 'U') IS NOT NULL
+    DROP TABLE dbo.Cards;
 
 IF OBJECT_ID('dbo.Users', 'U') IS NOT NULL
     DROP TABLE dbo.Users;
 
-IF OBJECT_ID('dbo.Status', 'U') IS NOT NULL
-    DROP TABLE dbo.Status;
-
-if OBJECT_ID('dbo.Cards', 'U') IS NOT NULL
-    DROP TABLE dbo.Cards;
-
-if OBJECT_ID('dbo.ReferralStatus', 'U') IS NOT NULL
-    DROP TABLE dbo.ReferralStatus;
-
+IF OBJECT_ID('dbo.Wallets', 'U') IS NOT NULL
+    DROP TABLE dbo.Wallets;
 
 -- create the table
 
@@ -219,11 +218,3 @@ CREATE TABLE [dbo].[SubTransactions] (
     FOREIGN KEY (SellerWalletId) REFERENCES Wallets(Id),
     FOREIGN KEY (BuyerWalletId) REFERENCES Wallets(Id)
 );
-
-
-
-    
-
-    
-
-
