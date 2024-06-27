@@ -216,3 +216,7 @@ CREATE TABLE [dbo].[SubTransactions] (
     FOREIGN KEY (SellerWalletId) REFERENCES Wallets(Id),
     FOREIGN KEY (BuyerWalletId) REFERENCES Wallets(Id)
 );
+
+
+
+

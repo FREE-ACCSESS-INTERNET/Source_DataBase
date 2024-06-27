@@ -161,3 +161,51 @@ BEGIN
     (FLOOR(CAST(RAND() * 7 AS INT))+1, GETDATE(), FLOOR(CAST(RAND() * 10000 AS INT))+1);
     SET @i15 = @i15 + 1;
 END;
+
+insert into transactions
+select a.transactionId, a.CreatedAt from transactions as a, transactions as b;
+
+insert into traffics
+select a.ConfigurationId, a.PathId, a.CreatedAt, a.Gig from traffics as a, traffics as b;
+
+insert into subtransactions
+select a.TransactionId, a.Amount, a.ReferralId, a.SellerWalletId, a.BuyerWalletId, a.Status from subtransactions as a, subtransactions as b;
+
+insert into pathstatus
+select a.PathId, a.Speed, a.Ping, a.CreatedAt from pathstatus as a, pathstatus as b;
+
+insert into lastusedgig
+select a.ConfigurationId, a.UsedGig, a.UpdateDate from lastusedgig as a, lastusedgig as b;
+
+insert into paymentsstatus
+select a.Status, a.CreatedAt, a.PaymentId from paymentsstatus as a, paymentsstatus as b;
+
+insert into payments
+select a.BuyerWalletId, a.SellerCardId, a.Amount, a.CreatedAt from payments as a, payments as b;
+
+insert into server
+select a.Name, a.IP, a.Port, a.CreatedAt, a.Status, a.CountryId from server as a, server as b;
+
+insert into countries
+select a.Name from countries as a, countries as b;
+
+insert into referrals
+select a.UserId, a.ReferralId, a.CardID, a.Balance from referrals as a, referrals as b;
+
+insert into referralstatus
+select a.Status, a.CreatedAt, a.ReferralId from referralstatus as a, referralstatus as b;
+
+insert into users
+select a.Name, a.TelgramId, a.TelegramInfo, a.CreatedAt, a.WalletId, a.InviteCode from users as a, users as b;
+
+insert into cards
+select a.WalletId, a.CardNumber, a.CreatedAt from cards as a, cards as b;
+
+insert into wallets
+select a.Balance from wallets as a, wallets as b;
+
+insert into configurations
+select a.WalletId, a.ServerId, a.CreatedAt, a.Status, a.Name, a.ConfTemplate, a.UsedGig, a.MaxGig, a.ActivePathId from configurations as a, configurations as b;
+
+insert into paths
+select a.ServerId, a.Address, a.Info, a.CreatedAt, a.Status, a.PricePerGig from paths as a, paths as b;
