@@ -175,37 +175,45 @@ insert into Status (Name) values
 ('Processing');
 
 --  create 10000 wallets with a 0 balance
-DECLARE @i INT = 1;
-WHILE @i <= 10000
+DECLARE @i1 INT = 1;
+WHILE @i1 <= 10000
 BEGIN
     insert into Wallets (Balance) values (0);
-    SET @i = @i + 1;
+    SET @i1 = @i1 + 1;
 END;
 
 -- create 10000 Userse 
-DECLARE @i INT = 1;
-WHILE @i <= 10000
+DECLARE @i2 INT = 1;
+WHILE @i2 <= 10000
 BEGIN
     insert into Users (Name, TelgramId, TelegramInfo, CreatedAt, WalletId, InviteCode) values 
-    ('User' + CAST(@i AS NVARCHAR(50)), 'TelgramId' + CAST(@i AS NVARCHAR(50)), 'TelegramInfo' + CAST(@i AS NVARCHAR(200)), GETDATE(), @i, 'InviteCode' + CAST(@i AS NVARCHAR(50)));
-    SET @i = @i + 1;
+    ('User' + CAST(@i2 AS NVARCHAR(50)), 'TelgramId' + CAST(@i2 AS NVARCHAR(50)), 'TelegramInfo' + CAST(@i2 AS NVARCHAR(200)), GETDATE(), @i2, 'InviteCode' + CAST(@i2 AS NVARCHAR(50)));
+    SET @i2 = @i2 + 1;
 END;
 
 -- create 20000 Cards
-DECLARE @i INT = 1;
-WHILE @i <= 20000
+DECLARE @i3 INT = 1;
+WHILE @i3 <= 20000
 BEGIN
     insert into Cards (WalletId, CardNumber, CreatedAt) values 
-    (CEILING(i/2), 'CardNumber' + CAST(@i AS NVARCHAR(50)), GETDATE());
-    SET @i = @i + 1;
+    (CEILING(@i3/2), 'CardNumber' + CAST(@i3 AS NVARCHAR(50)), GETDATE());
+    SET @i3 = @i3 + 1;
 END;
 
 -- create 10000 Referrals
-DECLARE @i INT = 2;
-WHILE @i <= 10000
+DECLARE @i4 INT = 2;
+WHILE @i4 <= 10000
 BEGIN
     insert into Referrals (UserId, ReferralId, CardID, Balance) values 
-    (@i, @i - 1, @i, 0);
-    SET @i = @i + 2;
+    (@i4, @i4 - 1, @i4, 0);
+    SET @i4 = @i4 + 2;
 END;
 
+-- create 1000000 Payments 
+DECLARE @i5 INT = 1;
+WHILE @i5 <= 1000000
+BEGIN
+    insert into Payments (BuyerWalletId, SellerCardId, Amount, CreatedAt) values 
+    (FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(20000-1+1))+1, RAND()*1000, GETDATE());
+    SET @i5 = @i5 + 1;
+END;
