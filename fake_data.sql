@@ -94,7 +94,7 @@ DECLARE @i9 INT = 1;
 WHILE @i9 <= 10000
 BEGIN
     insert into Traffics (ConfigurationId, PathId, CreatedAt, Gig) values 
-    (@i9, CEILING(i9/200)+1, GETDATE(), CEILING(i9/200)+1);
+    (@i9, CEILING(@i9/200)+1, GETDATE(), CEILING(@i9/200)+1);
     SET @i9 = @i9 + 1;
 END;
 
@@ -102,7 +102,7 @@ DECLARE @i10 INT = 1;
 WHILE @i10 <= 10000
 BEGIN
     insert into Transactions (TrafficsId, CreatedAt) values 
-    (i10, GETDATE());
+    (@i10, GETDATE());
     SET @i10 = @i10 + 1;
 END;
 
@@ -123,7 +123,6 @@ BEGIN
     SET @referralId = @referralId + 1;
     SET @sellerWalletId = @sellerWalletId + 1;
     SET @buyerWalletId = @buyerWalletId + 1;
-    SET @status = @status + 1;
 END;
     
 
@@ -141,7 +140,7 @@ DECLARE @i13 INT = 1;
 WHILE @i13 <= 1000
 BEGIN
     insert into LastUsedGig (ConfigurationId, UsedGig, UpdateDate) values 
-    (FLOOR(CAST(RAND() * 1000 AS INT))+1, CAST(RAND() * 100 AS DECIMAL(3, 2)), GETDATE());
+    (FLOOR(CAST(RAND() * 1000 AS INT))+1, @i13/10, GETDATE());
     SET @i13 = @i13 + 1;
 END;
 
