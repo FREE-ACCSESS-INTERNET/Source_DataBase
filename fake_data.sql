@@ -1,169 +1,3 @@
-CREATE TABLE [dbo].[Status] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [Name] NVARCHAR(50) NOT NULL
-);
-
-CREATE TABLE [dbo].[Wallets] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [Balance] DECIMAL(18, 2) NOT NULL,
-);
-
-CREATE TABLE [dbo].[Cards] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [WalletId] INT NOT NULL,
-    [CardNumber] NVARCHAR(50) NOT NULL,
-    [CreatedAt] DATETIME NOT NULL,
-    FOREIGN KEY (WalletId) REFERENCES Wallets(Id)
-);
-
-CREATE TABLE [dbo].[Users] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [Name] NVARCHAR(50) NOT NULL,
-    [TelgramId] NVARCHAR(50) NOT NULL,
-    [TelegramInfo] NVARCHAR(200) NOT NULL,
-    [CreatedAt] DATETIME NOT NULL,
-    [WalletId] INT NOT NULL,
-    [InviteCode] NVARCHAR(50) NOT NULL,
-    FOREIGN KEY (WalletId) REFERENCES Wallets(Id)
-);
-
-CREATE TABLE [dbo].[ReferralStatus] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [Status] INT NOT NULL,
-    [CreatedAt] DATETIME NOT NULL,
-    [ReferralId] INT NOT NULL,
-    FOREIGN KEY (ReferralId) REFERENCES Users(Id),
-    FOREIGN KEY (Status) REFERENCES Status(Id)
-);
-
-
-CREATE TABLE [dbo].[Referrals] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [UserId] INT NOT NULL,
-    [ReferralId] INT NOT NULL,
-    [CardID] INT NOT NULL,
-    [Balance] DECIMAL(18, 2) NOT NULL,
-    FOREIGN KEY (CardID) REFERENCES Cards(Id),
-    FOREIGN KEY (UserId) REFERENCES Users(Id),
-    FOREIGN KEY (ReferralId) REFERENCES Users(Id),
-);
-
-CREATE TABLE [dbo].[Countries] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [Name] NVARCHAR(50) NOT NULL
-);
-
-CREATE TABLE [dbo].[Server] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [Name] NVARCHAR(50) NOT NULL,
-    [IP] NVARCHAR(50) NOT NULL,
-    [Port] INT NOT NULL,
-    [CreatedAt] DATETIME NOT NULL,
-    [Status] INT NOT NULL,
-    [CountryId] INT NOT NULL,
-    FOREIGN KEY (CountryId) REFERENCES Countries(Id),
-    FOREIGN KEY (Status) REFERENCES Status(Id)
-);
-
-CREATE TABLE [dbo].[Payments] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [BuyerWalletId] INT NOT NULL,
-    [SellerCardId] INT NOT NULL,
-    [Amount] DECIMAL(18, 2) NOT NULL,
-    [CreatedAt] DATETIME NOT NULL,
-    FOREIGN KEY (BuyerWalletId) REFERENCES Wallets(Id),
-    FOREIGN KEY (SellerCardId) REFERENCES Cards(Id)
-);
-
-CREATE TABLE [dbo].[PaymentsStatus] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [Status] INT NOT NULL,
-    [CreatedAt] DATETIME NOT NULL,
-    [PaymentId] INT NOT NULL,
-    FOREIGN KEY (PaymentId) REFERENCES Payments(Id),
-    FOREIGN KEY (Status) REFERENCES Status(Id)
-);
-
-CREATE TABLE [dbo].[Paths] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [ServerId] INT NOT NULL,
-    [Address] NVARCHAR(50) NOT NULL,
-    [Info] NVARCHAR(200) NOT NULL,
-    [CreatedAt] DATETIME NOT NULL,
-    [Status] INT NOT NULL,
-    [PricePerGig] DECIMAL(18, 2) NOT NULL,
-    FOREIGN KEY (ServerId) REFERENCES Server(Id),
-    FOREIGN KEY (Status) REFERENCES Status(Id)
-);
-
-CREATE TABLE [dbo].[Configurations] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [WalletId] INT NOT NULL,
-    [ServerId] INT NOT NULL,
-    [CreatedAt] DATETIME NOT NULL,
-    [Status] INT NOT NULL,
-    [Name] NVARCHAR(50) NOT NULL,
-    [ConfTemplate] NVARCHAR(200) NOT NULL,
-    [UsedGig] INT NOT NULL,
-    [MaxGig] INT NOT NULL,
-    [ActivePathId] INT NOT NULL,
-    FOREIGN KEY (ActivePathId) REFERENCES Paths(Id),
-    FOREIGN KEY (WalletId) REFERENCES Wallets(Id),
-    FOREIGN KEY (ServerId) REFERENCES Server(Id),
-    FOREIGN KEY (Status) REFERENCES Status(Id)
-);
-
-CREATE TABLE [dbo].[LastUsedGig] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [ConfigurationId] INT NOT NULL,
-    [UsedGig] DECIMAL(3, 2) NOT NULL,
-    [UpdateDate] DATETIME,
-    FOREIGN KEY (ConfigurationId) REFERENCES Configurations(Id)
-);
-
-
-CREATE TABLE [dbo].[PathStatus] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [PathId] INT NOT NULL,
-    [Speed] INT NOT NULL,
-    [Ping] INT NOT NULL,
-    [CreatedAt] DATETIME NOT NULL,
-    FOREIGN KEY (PathId) REFERENCES Paths(Id)
-);
-
-CREATE TABLE [dbo].[Traffics] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [ConfigurationId] INT NOT NULL,
-    [PathId] INT NOT NULL,
-    [CreatedAt] DATETIME NOT NULL,
-    [Gig] DECIMAL(3, 2) NOT NULL,
-    FOREIGN KEY (ConfigurationId) REFERENCES Configurations(Id),
-    FOREIGN KEY (PathId) REFERENCES Paths(Id)
-);
-
-CREATE TABLE [dbo].[Transactions] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [TrafficsId] INT NOT NULL,
-    [CreatedAt] DATETIME NOT NULL,
-    FOREIGN KEY (TrafficsId) REFERENCES Traffics(Id)
-);
-
-CREATE TABLE [dbo].[SubTransactions] (
-    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
-    [TransactionId] INT NOT NULL,
-    [Amount] DECIMAL(18, 2) NOT NULL,
-    [ReferralId] INT NOT NULL,
-    [SellerWalletId] INT NOT NULL,
-    [BuyerWalletId] INT NOT NULL,
-    [Status] INT NOT NULL,
-    FOREIGN KEY (Status) REFERENCES Status(Id),
-    FOREIGN KEY (TransactionId) REFERENCES Transactions(Id),
-    FOREIGN KEY (ReferralId) REFERENCES Referrals(Id),
-    FOREIGN KEY (SellerWalletId) REFERENCES Wallets(Id),
-    FOREIGN KEY (BuyerWalletId) REFERENCES Wallets(Id)
-);
-
-
 insert into Status (Name) values
 ('Active'), 
 ('Inactive'), 
@@ -182,7 +16,7 @@ BEGIN
     SET @i1 = @i1 + 1;
 END;
 
--- create 10000 Userse 
+-- create 10000 Users
 DECLARE @i2 INT = 1;
 WHILE @i2 <= 10000
 BEGIN
@@ -209,9 +43,8 @@ BEGIN
     SET @i4 = @i4 + 2;
 END;
 
--- create 1000000 Payments 
 DECLARE @i5 INT = 1;
-WHILE @i5 <= 1000000
+WHILE @i5 <= 10000
 BEGIN
     insert into Payments (BuyerWalletId, SellerCardId, Amount, CreatedAt) values 
     (FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(20000-1+1))+1, RAND()*1000, GETDATE());
@@ -231,7 +64,6 @@ insert into Countries (Name) values
 ('Spain'),
 ('Canada');
 
--- create 100 10 servers
 DECLARE @i6 INT = 1;
 WHILE @i6 <= 10
 BEGIN
@@ -258,30 +90,63 @@ BEGIN
     SET @i8 = @i8 + 1;
 END;
 
--- create 5000000 traffics
 DECLARE @i9 INT = 1;
-WHILE @i9 <= 5000000
+WHILE @i9 <= 10000
 BEGIN
     insert into Traffics (ConfigurationId, PathId, CreatedAt, Gig) values 
     (FLOOR(RAND()*(1000-1+1))+1, FLOOR(RAND()*(100-1+1))+1, GETDATE(), RAND()*100);
     SET @i9 = @i9 + 1;
 END;
 
--- create 5000000 transactions
 DECLARE @i10 INT = 1;
-WHILE @i10 <= 5000000
+WHILE @i10 <= 10000
 BEGIN
     insert into Transactions (TrafficsId, CreatedAt) values 
-    (FLOOR(RAND()*(5000000-1+1))+1, GETDATE());
+    (FLOOR(RAND()*(10000-1+1))+1, GETDATE());
     SET @i10 = @i10 + 1;
 END;
 
--- create 5000000 subtransactions
+-- create 1000 subtransactions
 DECLARE @i11 INT = 1;
-WHILE @i11 <= 5000000
+WHILE @i11 <= 1000
 BEGIN
     insert into SubTransactions (TransactionId, Amount, ReferralId, SellerWalletId, BuyerWalletId, Status) values 
-    (FLOOR(RAND()*(5000000-1+1))+1, RAND()*100, FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(7-1+1))+1);
+    (FLOOR(RAND()*(10000-1+1))+1, RAND()*100, FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(7-1+1))+1);
     SET @i11 = @i11 + 1;
 END;
 
+-- create 1000 pathstatus
+DECLARE @i12 INT = 1;
+WHILE @i12 <= 1000
+BEGIN
+    insert into PathStatus (PathId, Speed, Ping, CreatedAt) values 
+    (FLOOR(RAND()*(100-1+1))+1, FLOOR(RAND()*(100-1+1))+1, FLOOR(RAND()*(100-1+1))+1, GETDATE());
+    SET @i12 = @i12 + 1;
+END;
+
+-- create 1000 lastusedgig
+DECLARE @i13 INT = 1;
+WHILE @i13 <= 1000
+BEGIN
+    insert into LastUsedGig (ConfigurationId, UsedGig, UpdateDate) values 
+    (FLOOR(RAND()*(1000-1+1))+1, RAND()*100, GETDATE());
+    SET @i13 = @i13 + 1;
+END;
+
+-- create 1000 paymentsstatus
+DECLARE @i14 INT = 1;
+WHILE @i14 <= 1000
+BEGIN
+    insert into PaymentsStatus (Status, CreatedAt, PaymentId) values 
+    (FLOOR(RAND()*(7-1+1))+1, GETDATE(), FLOOR(RAND()*(10000-1+1))+1);
+    SET @i14 = @i14 + 1;
+END;
+
+-- create 1000 referralstatus
+DECLARE @i15 INT = 1;
+WHILE @i15 <= 1000
+BEGIN
+    insert into ReferralStatus (Status, CreatedAt, ReferralId) values 
+    (FLOOR(RAND()*(7-1+1))+1, GETDATE(), FLOOR(RAND()*(10000-1+1))+1);
+    SET @i15 = @i15 + 1;
+END;
