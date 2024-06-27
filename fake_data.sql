@@ -140,7 +140,7 @@ DECLARE @i13 INT = 1;
 WHILE @i13 <= 1000
 BEGIN
     insert into LastUsedGig (ConfigurationId, UsedGig, UpdateDate) values 
-    (FLOOR(CAST(RAND() * 1000 AS INT))+1, @i13/10, GETDATE());
+    (@i13, @i13/10, GETDATE());
     SET @i13 = @i13 + 1;
 END;
 
@@ -183,11 +183,6 @@ select a.Status, a.CreatedAt, a.PaymentId from paymentsstatus as a, paymentsstat
 insert into payments
 select a.BuyerWalletId, a.SellerCardId, a.Amount, a.CreatedAt from payments as a, payments as b;
 
-insert into server
-select a.Name, a.IP, a.Port, a.CreatedAt, a.Status, a.CountryId from server as a, server as b;
-
-insert into countries
-select a.Name from countries as a, countries as b;
 
 insert into referrals
 select a.UserId, a.ReferralId, a.CardID, a.Balance from referrals as a, referrals as b;
