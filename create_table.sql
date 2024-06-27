@@ -4,9 +4,6 @@
 IF OBJECT_ID('dbo.LastUsedGig', 'U') IS NOT NULL
     DROP TABLE dbo.LastUsedGig;
 
-IF OBJECT_ID('dbo.Configurations', 'U') IS NOT NULL
-    DROP TABLE dbo.Configurations;
-
 IF OBJECT_ID('dbo.PathStatus', 'U') IS NOT NULL
     DROP TABLE dbo.PathStatus;
 
@@ -19,6 +16,9 @@ IF OBJECT_ID('dbo.Transactions', 'U') IS NOT NULL
 IF OBJECT_ID('dbo.Traffics', 'U') IS NOT NULL
     DROP TABLE dbo.Traffics;
 
+IF OBJECT_ID('dbo.Configurations', 'U') IS NOT NULL
+    DROP TABLE dbo.Configurations;
+    
 IF OBJECT_ID('dbo.Paths', 'U') IS NOT NULL
     DROP TABLE dbo.Paths;
 
