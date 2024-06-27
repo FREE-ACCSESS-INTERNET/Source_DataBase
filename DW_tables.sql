@@ -167,6 +167,7 @@ CREATE TABLE [dbo].[SubTransactions] (
 
 
 -- create tables for Data WareHouse 
+CREATE SCHEMA NET AUTHORIZATION dbo;
 
 CREATE TABLE [Net].[DimServer] (
     [Id] INT NOT NULL PRIMARY KEY,
