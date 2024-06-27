@@ -175,18 +175,17 @@ insert into Status (Name) values
 ('Processing');
 
 --  create 10000 wallets with a 0 balance
-for i in 1..10000 loop
+DECLARE @i INT = 1;
+WHILE @i <= 10000
+BEGIN
     insert into Wallets (Balance) values (0);
-end loop;
+    SET @i = @i + 1;
+END;
 
 -- create 10000 Userse 
 for i in 1..10000 loop
-    insert into Users (Name, TelgramId, TelegramInfo, CreatedAt, WalletId, InviteCode) values 
-    ('User' || i, 'telegram' || i, 'telegram info' || i, getdate(), i, 'invite' || i);
+
 end loop;
 
 -- create 10000 Cards
-for i in 1..10000 loop
-    insert into Cards (WalletId, CardNumber, CreatedAt) values 
-    (i, 'card' || i, getdate());
-end loop;
+
