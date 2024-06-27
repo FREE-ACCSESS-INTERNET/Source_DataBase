@@ -217,3 +217,71 @@ BEGIN
     (FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(20000-1+1))+1, RAND()*1000, GETDATE());
     SET @i5 = @i5 + 1;
 END;
+
+-- create 10 countries
+insert into Countries (Name) values
+('Iran'), 
+('Turkey'), 
+('Russia'), 
+('China'),
+('USA'),
+('Germany'),
+('France'),
+('Italy'),
+('Spain'),
+('Canada');
+
+-- create 100 10 servers
+DECLARE @i6 INT = 1;
+WHILE @i6 <= 10
+BEGIN
+    insert into Server (Name, IP, Port, CreatedAt, Status, CountryId) values 
+    ('Server' + CAST(@i6 AS NVARCHAR(50)), '192.168.1.' + CAST(@i6 AS NVARCHAR(50)), 8080, GETDATE(), 1, FLOOR(RAND()*(10-1+1))+1);
+    SET @i6 = @i6 + 1;
+END;
+
+-- create 100 paths 
+DECLARE @i7 INT = 1;
+WHILE @i7 <= 100
+BEGIN
+    insert into Paths (ServerId, Address, Info, CreatedAt, Status, PricePerGig) values 
+    (FLOOR(RAND()*(10-1+1))+1, 'Address' + CAST(@i7 AS NVARCHAR(50)), 'Info' + CAST(@i7 AS NVARCHAR(200)), GETDATE(), 1, RAND()*100);
+    SET @i7 = @i7 + 1;
+END;    
+
+-- create 1000 configurations
+DECLARE @i8 INT = 1;
+WHILE @i8 <= 1000
+BEGIN
+    insert into Configurations (WalletId, ServerId, CreatedAt, Status, Name, ConfTemplate, UsedGig, MaxGig, ActivePathId) values 
+    (FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(10-1+1))+1, GETDATE(), 1, 'Name' + CAST(@i8 AS NVARCHAR(50)), 'ConfTemplate' + CAST(@i8 AS NVARCHAR(200)), 0, 100, FLOOR(RAND()*(100-1+1))+1);
+    SET @i8 = @i8 + 1;
+END;
+
+-- create 5000000 traffics
+DECLARE @i9 INT = 1;
+WHILE @i9 <= 5000000
+BEGIN
+    insert into Traffics (ConfigurationId, PathId, CreatedAt, Gig) values 
+    (FLOOR(RAND()*(1000-1+1))+1, FLOOR(RAND()*(100-1+1))+1, GETDATE(), RAND()*100);
+    SET @i9 = @i9 + 1;
+END;
+
+-- create 5000000 transactions
+DECLARE @i10 INT = 1;
+WHILE @i10 <= 5000000
+BEGIN
+    insert into Transactions (TrafficsId, CreatedAt) values 
+    (FLOOR(RAND()*(5000000-1+1))+1, GETDATE());
+    SET @i10 = @i10 + 1;
+END;
+
+-- create 5000000 subtransactions
+DECLARE @i11 INT = 1;
+WHILE @i11 <= 5000000
+BEGIN
+    insert into SubTransactions (TransactionId, Amount, ReferralId, SellerWalletId, BuyerWalletId, Status) values 
+    (FLOOR(RAND()*(5000000-1+1))+1, RAND()*100, FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(7-1+1))+1);
+    SET @i11 = @i11 + 1;
+END;
+
