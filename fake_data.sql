@@ -163,7 +163,7 @@ BEGIN
 END;
 
 insert into transactions
-select a.transactionId, a.CreatedAt from transactions as a, transactions as b;
+select a.TrafficsId, a.CreatedAt from transactions as a, transactions as b;
 
 insert into traffics
 select a.ConfigurationId, a.PathId, a.CreatedAt, a.Gig from traffics as a, traffics as b;
