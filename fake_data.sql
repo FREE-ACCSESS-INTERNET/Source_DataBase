@@ -30,7 +30,7 @@ DECLARE @i3 INT = 1;
 WHILE @i3 <= 20000
 BEGIN
     insert into Cards (WalletId, CardNumber, CreatedAt) values 
-    (CEILING(@i3/2), 'CardNumber' + CAST(@i3 AS NVARCHAR(50)), GETDATE());
+    (CEILING(@i3/4)+5, 'CardNumber' + CAST(@i3 AS NVARCHAR(50)), GETDATE());
     SET @i3 = @i3 + 1;
 END;
 
@@ -94,7 +94,7 @@ DECLARE @i9 INT = 1;
 WHILE @i9 <= 10000
 BEGIN
     insert into Traffics (ConfigurationId, PathId, CreatedAt, Gig) values 
-    (FLOOR(RAND()*(1000-1+1))+1, FLOOR(RAND()*(100-1+1))+1, GETDATE(), RAND()*100);
+    (@i9, CEILING(i9/200)+1, GETDATE(), CEILING(i9/200)+1);
     SET @i9 = @i9 + 1;
 END;
 
@@ -102,25 +102,37 @@ DECLARE @i10 INT = 1;
 WHILE @i10 <= 10000
 BEGIN
     insert into Transactions (TrafficsId, CreatedAt) values 
-    (FLOOR(RAND()*(10000-1+1))+1, GETDATE());
+    (i10, GETDATE());
     SET @i10 = @i10 + 1;
 END;
 
 -- create 1000 subtransactions
 DECLARE @i11 INT = 1;
+DECLARE @transactionId INT = 1;
+DECLARE @referralId INT = 1;
+DECLARE @sellerWalletId INT = 1;
+DECLARE @buyerWalletId INT = 1;
+DECLARE @status INT = 1;
+
 WHILE @i11 <= 1000
 BEGIN
     insert into SubTransactions (TransactionId, Amount, ReferralId, SellerWalletId, BuyerWalletId, Status) values 
-    (FLOOR(RAND()*(10000-1+1))+1, RAND()*100, FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(10000-1+1))+1, FLOOR(RAND()*(7-1+1))+1);
+    (@transactionId, @i11 * 100, @referralId, @sellerWalletId, @buyerWalletId, @status);
     SET @i11 = @i11 + 1;
+    SET @transactionId = @transactionId + 1;
+    SET @referralId = @referralId + 1;
+    SET @sellerWalletId = @sellerWalletId + 1;
+    SET @buyerWalletId = @buyerWalletId + 1;
+    SET @status = @status + 1;
 END;
+    
 
 -- create 1000 pathstatus
 DECLARE @i12 INT = 1;
 WHILE @i12 <= 1000
 BEGIN
     insert into PathStatus (PathId, Speed, Ping, CreatedAt) values 
-    (FLOOR(RAND()*(100-1+1))+1, FLOOR(RAND()*(100-1+1))+1, FLOOR(RAND()*(100-1+1))+1, GETDATE());
+    (FLOOR(CAST(RAND() * 100 AS INT))+1, FLOOR(CAST(RAND() * 100 AS INT))+1, FLOOR(CAST(RAND() * 100 AS INT))+1, GETDATE());
     SET @i12 = @i12 + 1;
 END;
 
@@ -129,7 +141,7 @@ DECLARE @i13 INT = 1;
 WHILE @i13 <= 1000
 BEGIN
     insert into LastUsedGig (ConfigurationId, UsedGig, UpdateDate) values 
-    (FLOOR(RAND()*(1000-1+1))+1, RAND()*100, GETDATE());
+    (FLOOR(CAST(RAND() * 1000 AS INT))+1, CAST(RAND() * 100 AS DECIMAL(3, 2)), GETDATE());
     SET @i13 = @i13 + 1;
 END;
 
@@ -138,7 +150,7 @@ DECLARE @i14 INT = 1;
 WHILE @i14 <= 1000
 BEGIN
     insert into PaymentsStatus (Status, CreatedAt, PaymentId) values 
-    (FLOOR(RAND()*(7-1+1))+1, GETDATE(), FLOOR(RAND()*(10000-1+1))+1);
+    (FLOOR(CAST(RAND() * 7 AS INT))+1, GETDATE(), FLOOR(CAST(RAND() * 10000 AS INT))+1);
     SET @i14 = @i14 + 1;
 END;
 
@@ -147,6 +159,6 @@ DECLARE @i15 INT = 1;
 WHILE @i15 <= 1000
 BEGIN
     insert into ReferralStatus (Status, CreatedAt, ReferralId) values 
-    (FLOOR(RAND()*(7-1+1))+1, GETDATE(), FLOOR(RAND()*(10000-1+1))+1);
+    (FLOOR(CAST(RAND() * 7 AS INT))+1, GETDATE(), FLOOR(CAST(RAND() * 10000 AS INT))+1);
     SET @i15 = @i15 + 1;
 END;
