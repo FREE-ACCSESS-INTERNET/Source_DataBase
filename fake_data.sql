@@ -165,7 +165,14 @@ CREATE TABLE [dbo].[SubTransactions] (
 
 
 insert into Status (Name) values
-('Active', 'Inactive', 'Deleted', 'Blocked', 'Pending', 'Suspended', 'Expired', 'Canceled', 'Completed', 'Failed', 'Refunded');
+('Active'), 
+('Inactive'), 
+('Blocked'), 
+('Deleted'),
+('Pending'),
+('Success'),
+('Failed'),
+('Processing');
 
 --  create 10000 wallets with a 0 balance
 for i in 1..10000 loop
