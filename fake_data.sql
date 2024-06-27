@@ -183,9 +183,13 @@ BEGIN
 END;
 
 -- create 10000 Userse 
-for i in 1..10000 loop
-
-end loop;
+DECLARE @i INT = 1;
+WHILE @i <= 10000
+BEGIN
+    insert into Users (Name, TelgramId, TelegramInfo, CreatedAt, WalletId, InviteCode) values 
+    ('User' + CAST(@i AS NVARCHAR(50)), 'TelgramId' + CAST(@i AS NVARCHAR(50)), 'TelegramInfo' + CAST(@i AS NVARCHAR(200)), GETDATE(), @i, 'InviteCode' + CAST(@i AS NVARCHAR(50));
+    SET @i = @i + 1;
+END;
 
 -- create 10000 Cards
 
