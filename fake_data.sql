@@ -187,9 +187,25 @@ DECLARE @i INT = 1;
 WHILE @i <= 10000
 BEGIN
     insert into Users (Name, TelgramId, TelegramInfo, CreatedAt, WalletId, InviteCode) values 
-    ('User' + CAST(@i AS NVARCHAR(50)), 'TelgramId' + CAST(@i AS NVARCHAR(50)), 'TelegramInfo' + CAST(@i AS NVARCHAR(200)), GETDATE(), @i, 'InviteCode' + CAST(@i AS NVARCHAR(50));
+    ('User' + CAST(@i AS NVARCHAR(50)), 'TelgramId' + CAST(@i AS NVARCHAR(50)), 'TelegramInfo' + CAST(@i AS NVARCHAR(200)), GETDATE(), @i, 'InviteCode' + CAST(@i AS NVARCHAR(50)));
     SET @i = @i + 1;
 END;
 
--- create 10000 Cards
+-- create 20000 Cards
+DECLARE @i INT = 1;
+WHILE @i <= 20000
+BEGIN
+    insert into Cards (WalletId, CardNumber, CreatedAt) values 
+    (CEILING(i/2), 'CardNumber' + CAST(@i AS NVARCHAR(50)), GETDATE());
+    SET @i = @i + 1;
+END;
+
+-- create 10000 Referrals
+DECLARE @i INT = 2;
+WHILE @i <= 10000
+BEGIN
+    insert into Referrals (UserId, ReferralId, CardID, Balance) values 
+    (@i, @i - 1, @i, 0);
+    SET @i = @i + 2;
+END;
 
