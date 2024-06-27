@@ -1,5 +1,3 @@
--- this file aims to create the table in the SQL Server
-
 -- drop the table if it exists
 IF OBJECT_ID('dbo.LastUsedGig', 'U') IS NOT NULL
     DROP TABLE dbo.LastUsedGig;
@@ -18,7 +16,7 @@ IF OBJECT_ID('dbo.Traffics', 'U') IS NOT NULL
 
 IF OBJECT_ID('dbo.Configurations', 'U') IS NOT NULL
     DROP TABLE dbo.Configurations;
-    
+
 IF OBJECT_ID('dbo.Paths', 'U') IS NOT NULL
     DROP TABLE dbo.Paths;
 
