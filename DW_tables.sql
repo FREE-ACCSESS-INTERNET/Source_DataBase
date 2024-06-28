@@ -199,3 +199,34 @@ CREATE TABLE [temp].[DimCountry] (
     [Id] INT NOT NULL PRIMARY KEY,
     [Name] NVARCHAR(50) NOT NULL
 );
+
+
+CREATE TABLE [temp].[DimPath] (
+    [Id] INT NOT NULL PRIMARY KEY,
+    [Address] NVARCHAR(50) NOT NULL,
+    [Info] NVARCHAR(200) NOT NULL,
+    [CreatedAt] DATETIME NOT NULL,
+    [Status] NVARCHAR(50) NOT NULL,
+    [PricePerGig] DECIMAL(18, 2) NOT NULL,
+    [ServerName] NVARCHAR(50) NOT NULL,
+    [ServerIP] NVARCHAR(50) NOT NULL,
+    [ServerPort] INT NOT NULL,
+    [ServerCreatedAt] DATETIME NOT NULL,
+    [ServerStatus] NVARCHAR(50) NOT NULL,
+    [ServerCountryName] NVARCHAR(50) NOT NULL
+);
+
+CREATE TABLE [Net].[DimPath] (
+    [Id] INT NOT NULL PRIMARY KEY,
+    [Address] NVARCHAR(50) NOT NULL,
+    [Info] NVARCHAR(200) NOT NULL,
+    [CreatedAt] DATETIME NOT NULL,
+    [Status] NVARCHAR(50) NOT NULL,
+    [PricePerGig] DECIMAL(18, 2) NOT NULL,
+    [ServerName] NVARCHAR(50) NOT NULL,
+    [ServerIP] NVARCHAR(50) NOT NULL,
+    [ServerPort] INT NOT NULL,
+    [ServerCreatedAt] DATETIME NOT NULL,
+    [ServerStatus] NVARCHAR(50) NOT NULL,
+    [ServerCountryName] NVARCHAR(50) NOT NULL
+);
