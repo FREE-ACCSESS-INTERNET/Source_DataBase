@@ -249,7 +249,9 @@ Create table [NET].[DimConfiguration] (
     [PathInfo] NVARCHAR(200) NOT NULL,
     [PathCreatedAt] DATETIME NOT NULL,
     [PathStatus] NVARCHAR(50) NOT NULL,
-    [PathPricePerGig] DECIMAL(18, 2) NOT NULL
+    [PathPricePerGig] DECIMAL(18, 2) NOT NULL,
+    [StartDate] DATETIME NOT NULL,
+    [EndDate] DATETIME NOT NULL
 );
 
 Create table [Temp].[DimConfiguration] (
