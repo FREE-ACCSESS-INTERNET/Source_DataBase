@@ -178,3 +178,13 @@ CREATE TABLE [Net].[DimServer] (
     [Status] NVARCHAR(50) NOT NULL,
     [CountryName] NVARCHAR(50) NOT NULL
 );
+
+CREATE TABLE [Net].[DimCountry] (
+    [Id] INT NOT NULL PRIMARY KEY,
+    [Name] NVARCHAR(50) NOT NULL
+);
+
+CREATE TABLE [temp].[DimCountry] (
+    [Id] INT NOT NULL PRIMARY KEY,
+    [Name] NVARCHAR(50) NOT NULL
+);
