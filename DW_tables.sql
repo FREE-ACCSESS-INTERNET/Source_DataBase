@@ -233,6 +233,7 @@ CREATE TABLE [Net].[DimPath] (
 
 Create table [NET].[DimConfiguration] (
     [Id] INT NOT NULL PRIMARY KEY,
+    [BussinessKey] INT NOT,
     [CreatedAt] DATETIME NOT NULL,
     [Status] NVARCHAR(50) NOT NULL,
     [Name] NVARCHAR(50) NOT NULL,
