@@ -232,7 +232,7 @@ CREATE TABLE [Net].[DimPath] (
 );
 
 Create table [NET].[DimConfiguration] (
-    [Id] INT NOT NULL PRIMARY KEY,
+    [Id] INT NOT NULL PRIMARY KEY IDENTITY,
     [BussinessKey] INT NOT NULL,
     [CreatedAt] DATETIME NOT NULL,
     [Status] NVARCHAR(50) NOT NULL,
