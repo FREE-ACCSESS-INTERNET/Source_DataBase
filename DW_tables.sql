@@ -168,8 +168,19 @@ CREATE TABLE [dbo].[SubTransactions] (
 
 -- create tables for Data WareHouse 
 CREATE SCHEMA NET AUTHORIZATION dbo;
+CREATE SCHEMA Temp AUTHORIZATION dbo;
 
 CREATE TABLE [Net].[DimServer] (
+    [Id] INT NOT NULL PRIMARY KEY,
+    [Name] NVARCHAR(50) NOT NULL,
+    [IP] NVARCHAR(50) NOT NULL,
+    [Port] INT NOT NULL,
+    [CreatedAt] DATETIME NOT NULL,
+    [Status] NVARCHAR(50) NOT NULL,
+    [CountryName] NVARCHAR(50) NOT NULL
+);
+
+CREATE TABLE [Temp].[DimServer] (
     [Id] INT NOT NULL PRIMARY KEY,
     [Name] NVARCHAR(50) NOT NULL,
     [IP] NVARCHAR(50) NOT NULL,
