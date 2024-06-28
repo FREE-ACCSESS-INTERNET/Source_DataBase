@@ -230,3 +230,45 @@ CREATE TABLE [Net].[DimPath] (
     [ServerStatus] NVARCHAR(50) NOT NULL,
     [ServerCountryName] NVARCHAR(50) NOT NULL
 );
+
+Create table [NET].[DimConfiguration] (
+    [Id] INT NOT NULL PRIMARY KEY,
+    [CreatedAt] DATETIME NOT NULL,
+    [Status] NVARCHAR(50) NOT NULL,
+    [Name] NVARCHAR(50) NOT NULL,
+    [ConfTemplate] NVARCHAR(200) NOT NULL,
+    [UsedGig] INT NOT NULL,
+    [MaxGig] INT NOT NULL,
+    [ServerName] NVARCHAR(50) NOT NULL,
+    [ServerIP] NVARCHAR(50) NOT NULL,
+    [ServerPort] INT NOT NULL,
+    [ServerCreatedAt] DATETIME NOT NULL,
+    [ServerStatus] NVARCHAR(50) NOT NULL,
+    [ServerCountryName] NVARCHAR(50) NOT NULL,
+    [PathAddress] NVARCHAR(50) NOT NULL,
+    [PathInfo] NVARCHAR(200) NOT NULL,
+    [PathCreatedAt] DATETIME NOT NULL,
+    [PathStatus] NVARCHAR(50) NOT NULL,
+    [PathPricePerGig] DECIMAL(18, 2) NOT NULL
+);
+
+Create table [Temp].[DimConfiguration] (
+    [Id] INT NOT NULL PRIMARY KEY,
+    [CreatedAt] DATETIME NOT NULL,
+    [Status] NVARCHAR(50) NOT NULL,
+    [Name] NVARCHAR(50) NOT NULL,
+    [ConfTemplate] NVARCHAR(200) NOT NULL,
+    [UsedGig] INT NOT NULL,
+    [MaxGig] INT NOT NULL,
+    [ServerName] NVARCHAR(50) NOT NULL,
+    [ServerIP] NVARCHAR(50) NOT NULL,
+    [ServerPort] INT NOT NULL,
+    [ServerCreatedAt] DATETIME NOT NULL,
+    [ServerStatus] NVARCHAR(50) NOT NULL,
+    [ServerCountryName] NVARCHAR(50) NOT NULL,
+    [PathAddress] NVARCHAR(50) NOT NULL,
+    [PathInfo] NVARCHAR(200) NOT NULL,
+    [PathCreatedAt] DATETIME NOT NULL,
+    [PathStatus] NVARCHAR(50) NOT NULL,
+    [PathPricePerGig] DECIMAL(18, 2) NOT NULL
+);
