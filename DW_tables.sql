@@ -334,3 +334,12 @@ create table [Net].[FactConfStatus](
     UsedGig DECIMAL(3, 2) NOT NULL,
     TrafficsCount INT NOT NULL
 );
+
+create table [Net].[FactDailyPathStatus](
+    pathId INT NOT NULL PRIMARY KEY,
+    Date DATETIME,
+    serverID INT, 
+    CountryId INT, 
+    ping INT, 
+    speed INT
+);
