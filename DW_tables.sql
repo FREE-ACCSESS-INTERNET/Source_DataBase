@@ -275,3 +275,16 @@ Create table [Temp].[DimConfiguration] (
     [PathStatus] NVARCHAR(50) NOT NULL,
     [PathPricePerGig] DECIMAL(18, 2) NOT NULL
 );
+
+-- SCD type 3 for Telegram ID and Telegram Info
+
+Create table [NET].[DimUser] (
+    [Id] INT NOT NULL PRIMARY KEY,
+    [Name] NVARCHAR(50) NOT NULL,
+    [TelgramId] NVARCHAR(50) NOT NULL,
+    [TelegramInfo] NVARCHAR(200) NOT NULL,
+    [CreatedAt] DATETIME NOT NULL,
+    [InviteCode] NVARCHAR(50) NOT NULL,
+    [TelegramIdOld] NVARCHAR(50),
+    [TelegramInfoOld] NVARCHAR(200)
+);
