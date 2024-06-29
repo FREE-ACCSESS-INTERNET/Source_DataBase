@@ -312,3 +312,16 @@ CREATE TABLE [NET].[DimDate] (
     Minute INT,
     Season NVARCHAR(10)
 );
+
+-- fact table SubTransaction
+CREATE TABLE [NET].[FactSubTransaction] (
+    [Id] INT NOT NULL PRIMARY KEY,
+    Date INT NOT NULL,
+    UserId INT NOT NULL,
+    ParentId INT NOT NULL,
+    ConfigId INT NOT NULL,
+    ServerId INT NOT NULL, 
+    PathId INT NOT NULL,
+    CountryId INT NOT NULL,
+    UsedTraffic DECIMAL(18, 2) NOT NULL
+);
