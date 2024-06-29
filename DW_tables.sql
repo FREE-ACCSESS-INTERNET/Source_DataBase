@@ -302,15 +302,13 @@ Create table [Temp].[DimUser] (
 
 
 CREATE TABLE [NET].[DimDate] (
-    ID INT PRIMARY KEY,
     Date DATE,
     Year INT,
     Month INT,
     Day INT,
     Weekday INT,
     Hour INT,
-    Minute INT,
-    Season NVARCHAR(10)
+    Minute INT
 );
 
 -- fact table SubTransaction
