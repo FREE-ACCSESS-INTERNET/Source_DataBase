@@ -323,3 +323,14 @@ CREATE TABLE [NET].[FactSubTransaction] (
     CountryId INT NOT NULL,
     UsedTraffic DECIMAL(18, 2) NOT NULL
 );
+
+create table [Net].[FactConfStatus](
+    [ConfigId] INT NOT NULL PRIMARY KEY,
+    UserId INT NOT NULL,
+    ServerId INT NOT NULL,
+    PathId INT NOT NULL,
+    CountryId INT NOT NULL,
+    Status NVARCHAR(50) NOT NULL,
+    UsedGig DECIMAL(3, 2) NOT NULL,
+    TrafficsCount INT NOT NULL
+);
