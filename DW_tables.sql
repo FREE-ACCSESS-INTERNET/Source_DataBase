@@ -288,3 +288,27 @@ Create table [NET].[DimUser] (
     [TelegramIdOld] NVARCHAR(50),
     [TelegramInfoOld] NVARCHAR(200)
 );
+
+Create table [Temp].[DimUser] (
+    [Id] INT NOT NULL PRIMARY KEY,
+    [Name] NVARCHAR(50) NOT NULL,
+    [TelgramId] NVARCHAR(50) NOT NULL,
+    [TelegramInfo] NVARCHAR(200) NOT NULL,
+    [CreatedAt] DATETIME NOT NULL,
+    [InviteCode] NVARCHAR(50) NOT NULL,
+    [TelegramIdOld] NVARCHAR(50),
+    [TelegramInfoOld] NVARCHAR(200)
+);
+
+
+CREATE TABLE [NET].[DimDate] (
+    ID INT PRIMARY KEY,
+    Date DATE,
+    Year INT,
+    Month INT,
+    Day INT,
+    Weekday INT,
+    Hour INT,
+    Minute INT,
+    Season NVARCHAR(10)
+);
